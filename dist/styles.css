@@ -4,3 +4,5 @@
 
 /* Keep substantive text readable at every breakpoint. */
 .paper p,.project p,.service-row p,.education-note,.interests p,.opportunity p,.section-intro,.contact p:not(.eyebrow),.details-body p{font-size:16px!important}.topbar nav{font-size:14px}.project-impact{font-size:14px!important}@media(max-width:760px){.topbar nav{font-size:14px;gap:20px}.interests h3{font-size:16px}}
+
+.service-subheading{font-size:16px;font-weight:600;margin:30px 0 20px;padding-top:20px;border-top:1px solid var(--line)}
