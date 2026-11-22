@@ -6,13 +6,36 @@ A buildless, responsive academic website. The deployable site is in `dist/`; no 
 
 Run `python3 -m http.server 4321 --bind 127.0.0.1 --directory dist` from this folder. Open `http://127.0.0.1:4321`.
 
-## Deploy on Vercel
+## Deploy on GitHub Pages
+
+Use this `academic-site` folder as the root of your GitHub repository: `.github/`, `scripts/`, and `dist/` must sit at the repository root.
+
+1. Push the files to the repository's `main` branch.
+2. In the repository, open **Settings → Pages → Build and deployment → Source**, and choose **GitHub Actions**.
+3. Open **Actions → Deploy academic site to GitHub Pages → Run workflow**, selecting `main`. Later changes to site files on `main` deploy automatically.
+
+The workflow packages the public files in `dist/` with no dependency installation, then publishes through GitHub's Pages actions. It derives the canonical URL and social preview image URL from GitHub's Pages configuration, including a repository subpath when needed. Existing relative links work at both project and user site addresses. Only the packaged static files are uploaded; source notes and legacy hosting metadata are excluded.
+
+For the existing GitHub username `devhenode`, a repository called `henry-academics` produces `https://devhenode.github.io/henry-academics/`. For the shorter `https://devhenode.github.io/`, use a repository named `devhenode.github.io`. The workflow supports either choice without changing source URLs. These are expected URL patterns, not confirmation of a live deployment.
+
+To check the package locally, run:
+
+```sh
+python3 scripts/prepare_pages.py --base-url https://devhenode.github.io/henry-academics
+python3 -m http.server 4322 --bind 127.0.0.1 --directory _site
+```
+
+The `_site` output must be absent or empty before packaging. Regular local editing can keep using the `dist` preview described above.
+
+Official setup references: [GitHub Pages publishing source](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site) and [custom Pages workflows](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
+
+## Optional Vercel compatibility
 
 Push this folder to your own repository and import it in Vercel. The included `vercel.json` serves `dist` directly with no build or install step. If you push the containing `henry-academics` folder instead, its root configuration serves `academic-site/dist`.
 
 Keep Framework Preset set to Other. No environment variables are needed. After choosing your final domain, make `og:image` in `dist/index.html` an absolute image URL on that domain for social sharing.
 
-Do not publish or sync to ChatGPT Sites. The original private Sites deployment remains online because this session has no unpublish tool; take it offline through the Sites management UI. Its identity is retained locally only for tracking that cleanup.
+Do not publish or sync to ChatGPT Sites. The original private Sites deployment has not been unpublished because no unpublish capability was available; its identity is retained locally only for tracking that cleanup.
 
 ## Content and maintenance
 
@@ -39,6 +62,6 @@ The other portfolio reference to teaching programming in African universities ha
 
 Check JavaScript with `node --check dist/script.js`. Local asset/page targets and section anchors were checked with Python's HTMLParser. Browser checks covered image loading, navigation, disclosure controls, and a 390px mobile viewport without horizontal document overflow.
 
-Hosting preference: the user will push to their own repository and deploy on Vercel. Do not deploy automatically.
+Hosting preference (November 21, 2026): GitHub Pages. The user handles the repository push and enabling Pages. Preparing the workflow does not publish the site; it deploys when the user runs it or pushes site changes to `main` after enabling Pages. Do not push or deploy from this session.
 
 Browser-review updates: the user corrected LeAi reach to 10,000+ students, confirmed Python backend/algorithms and React/TypeScript frontend, and expanded ATC Africa leadership to six programs, managing leads across three Ogun State campuses, team check-ins, facilitation, and speaking. These user corrections supersede the older portfolio figures.

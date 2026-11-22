@@ -2,3 +2,5 @@
 .vercel/
 dist/.openai/
 *.tar.gz
+_site/
+__pycache__/
